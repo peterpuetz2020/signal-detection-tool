@@ -482,6 +482,7 @@ Possible algorithm values:
 - farrington
 - ears
 - cusum
+- five increases
 - glm mean
 - glm timetrend
 - glm harmonic

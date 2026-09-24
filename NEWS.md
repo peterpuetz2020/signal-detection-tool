@@ -1,5 +1,6 @@
 # SignalDetectionTool 0.11.2
 
+* Added a rule-based signal detection method that alarms after five consecutive incidence increases
 * Fixed bug that caused skewed map plots of certain regions (adds `lwgeom` dependency)
 * Add additional check for coordinate system present in shapefiles
 

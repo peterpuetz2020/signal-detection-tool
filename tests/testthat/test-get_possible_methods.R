@@ -38,14 +38,24 @@ test_that("2 weeks of historic data, number_of_time_units = 1  only CUSUM possib
   expect_identical(names(get_possible_methods(min_date, max_date, time_unit = time_unit, number_of_time_units = number_of_time_units)), "CUSUM")
 })
 
+test_that("5 weeks of historic data enables five consecutive increases", {
+  min_date <- as.Date("2020-01-01")
+  max_date <- min_date + lubridate::weeks(5)
 
-test_that("7 weeks of historic data, number_of_time_units = 1, EARS and CUSUM possible", {
+  expect_setequal(
+    names(get_possible_methods(min_date, max_date, number_of_time_units = 1)),
+    c("CUSUM", "Five consecutive increases")
+  )
+})
+
+
+test_that("7 weeks of historic data includes methods with short baselines", {
   min_date <- as.Date("2020-01-01")
   max_date <- min_date + lubridate::weeks(7)
   number_of_time_units <- 1
   time_unit <- "weekly"
 
-  expect_setequal(names(get_possible_methods(min_date, max_date, time_unit = time_unit, number_of_time_units = number_of_time_units)), c("EARS", "CUSUM"))
+  expect_setequal(names(get_possible_methods(min_date, max_date, time_unit = time_unit, number_of_time_units = number_of_time_units)), c("EARS", "CUSUM", "Five consecutive increases"))
 })
 
 test_that("2 years of historic data all except glm farrington and glm farrington with timetrend possible", {
@@ -54,7 +64,7 @@ test_that("2 years of historic data all except glm farrington and glm farrington
   number_of_time_units <- 1
   time_unit <- "weekly"
 
-  expect_setequal(names(get_possible_methods(min_date, max_date, time_unit = time_unit, number_of_time_units = number_of_time_units)), c("FarringtonFlexible", "EARS", "CUSUM", "Mean", "Timetrend", "Harmonic"))
+  expect_setequal(names(get_possible_methods(min_date, max_date, time_unit = time_unit, number_of_time_units = number_of_time_units)), c("FarringtonFlexible", "EARS", "CUSUM", "Five consecutive increases", "Mean", "Timetrend", "Harmonic"))
 })
 
 test_that("3 years of historic data all except glm farrington and glm farrington with timetrend possible", {
@@ -63,7 +73,7 @@ test_that("3 years of historic data all except glm farrington and glm farrington
   number_of_time_units <- 1
   time_unit <- "weekly"
 
-  expect_setequal(names(get_possible_methods(min_date, max_date, time_unit = time_unit, number_of_time_units = number_of_time_units)), c("FarringtonFlexible", "EARS", "CUSUM", "Mean", "Timetrend", "Harmonic", "Harmonic with timetrend", "Multi-seasonal harmonic"))
+  expect_setequal(names(get_possible_methods(min_date, max_date, time_unit = time_unit, number_of_time_units = number_of_time_units)), c("FarringtonFlexible", "EARS", "CUSUM", "Five consecutive increases", "Mean", "Timetrend", "Harmonic", "Harmonic with timetrend", "Multi-seasonal harmonic"))
 })
 
 test_that("4 years of historic data all methods possible", {

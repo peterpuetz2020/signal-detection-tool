@@ -86,6 +86,7 @@ available_algorithms <- function() {
     "FarringtonFlexible" = "farrington",
     "EARS" = "ears",
     "CUSUM" = "cusum",
+    "Five consecutive increases" = "five increases",
     "Mean" = "glm mean",
     "Timetrend" = "glm timetrend",
     "Harmonic" = "glm harmonic",
