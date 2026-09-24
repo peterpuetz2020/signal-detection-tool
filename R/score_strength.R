@@ -20,8 +20,8 @@
 score_strength <- function(signals_res) {
   method <- unique(signals_res$method)
 
-  if (method %in% c("ears", "cusum")) {
-    # strength score not possible with EARS or CUSUM as they don't return an expected value
+  if (method %in% c("ears", "cusum", "five increases")) {
+    # strength is unavailable for methods that do not return an expected value
     signals_res <- signals_res %>%
       dplyr::mutate(
         size.alarm = NA_real_,

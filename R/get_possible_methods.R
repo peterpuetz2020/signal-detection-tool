@@ -23,10 +23,14 @@
 #'         \code{"glm harmonic with timetrend"} and
 #'         \code{"glm harmonic multi"} are possible.
 #'   \item If 26 to <104 weeks of historic data are available:
-#'         \code{"Mean"}, \code{"CUSUM"} and \code{"EARS"} are possible.
+#'         \code{"Mean"}, \code{"CUSUM"}, \code{"EARS"}, and
+#'         \code{"Five consecutive increases"} are possible.
 #'   \item If 7 to <26 weeks of historic data are available:
-#'         \code{"Mean"} and \code{"CUSUM"} are possible.
-#'   \item If 1 to <7 weeks of historic data are available:
+#'         \code{"CUSUM"}, \code{"EARS"}, and
+#'         \code{"Five consecutive increases"} are possible.
+#'   \item If 5 to <7 weeks of historic data are available:
+#'         \code{"CUSUM"} and \code{"Five consecutive increases"} are possible.
+#'   \item If 1 to <5 weeks of historic data are available:
 #'         \code{"CUSUM"} is possible.
 #'   \item If no training data is available (less than 1 week),
 #'         \code{NULL} is returned.
@@ -116,9 +120,11 @@ get_possible_methods <- function(min_date,
     )
     methods_possible <- algos[!algos %in% not_possible]
   } else if (number_of_weeks_available_fitting >= 26) {
-    methods_possible <- algos[c("Mean", "CUSUM", "EARS")]
+    methods_possible <- algos[c("Mean", "CUSUM", "EARS", "Five consecutive increases")]
   } else if (number_of_weeks_available_fitting >= 7) {
-    methods_possible <- algos[c("CUSUM", "EARS")]
+    methods_possible <- algos[c("CUSUM", "EARS", "Five consecutive increases")]
+  } else if (number_of_weeks_available_fitting >= 5) {
+    methods_possible <- algos[c("CUSUM", "Five consecutive increases")]
   } else if (number_of_weeks_available_fitting >= 1) {
     methods_possible <- algos[c("CUSUM")]
   } else {

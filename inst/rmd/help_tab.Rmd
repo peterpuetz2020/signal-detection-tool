@@ -106,7 +106,11 @@ For more details about the individual algorithms, we recommend reading the texts
 #### CUSUM  
 
 CUSUM (cumulative sum) is an algorithm that detects shifts in the mean of a time series. It accumulates deviations of the observed case counts from the mean case count and once this accumulation has reached a value above a defined tolerance, a signal is triggered. After a signal is triggered, the cumulative sum is set to zero, and the algorithm restarts. As CUSUM accumulates the deviations over time, it is more sensitive to small and moderate shifts in the case count. The mean case count is computed on all case counts of the training period. CUSUM does not account for seasonality as it just computes a mean over all case counts. The SignalDetectionTool calls the function cusum_with_reset(), an adaptation of the function algo.cusum() from the R package surveillance (Salmon et al., 2016) while using its default parameters.
-CUSUM was originally developed by Page (1954) and typically used in industry for monitoring change detection. Rossi et al. (1999) serves as a  reference in the public health context.
+CUSUM was originally developed by Page (1954) and typically used in industry for monitoring change detection. Rossi et al. (1999) serves as a reference in the public health context.
+
+#### Five consecutive increases
+
+This rule-based method triggers an alarm when incidence has increased strictly at five consecutive time points. It therefore considers six observations: each of the five newest observations must be greater than the observation immediately before it. Equal or decreasing incidence resets the run. The method does not estimate an expected value or threshold and can be used with weekly, biweekly, or monthly data.
 
 #### FarringtonFlexible
 
@@ -239,4 +243,3 @@ The report can be produced in two different formats: HTML or DOCX.
 
 If you encounter any technical issues or bugs when using the SignalDetectionTool, please report them on [Github](https://github.com/United4Surveillance/signal-detection-evaluation-tool/issues/new/choose){target="_top"} by creating an issue. 
 Thank you in advance!
-
